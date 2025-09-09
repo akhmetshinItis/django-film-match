@@ -1,0 +1,131 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  padding: 32px 28px 24px 28px;
+  min-width: 340px;
+  max-width: 95vw;
+  width: 400px;
+  position: relative;
+  animation: modalIn 0.2s cubic-bezier(0.4, 2, 0.6, 1) both;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: #b0b0b0;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.closeButton:hover {
+  color: #222;
+}
+
+.title {
+  margin-bottom: 18px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #222;
+  text-align: center;
+}
+
+.userList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.userItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 8px;
+}
+
+.noResults {
+  text-align: center;
+  color: #b0b0b0;
+  padding: 18px 0;
+  font-style: italic;
+}
+
+.error {
+  color: #e11d48;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.button {
+  background: var(--accent-secondary-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+// button:disabled {
+//   background: #e5e7eb;
+//   color: #b0b0b0;
+//   cursor: default;
+// }
+// button:not(:disabled):hover {
+//   background: #2563eb;
+// }
+
+.sentButton,
+.receivedButton {
+  padding: 8px 16px;
+  border: none;
+  background: #f3f4f6;
+  color: #222;
+  border-radius: 6px;
+  margin-right: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.activeButton {
+  background: var(--accent-secondary-color);
+  color: #fff;
+}
+
+.sentButton:disabled,
+.receivedButton:disabled {
+  cursor: not-allowed;
+}

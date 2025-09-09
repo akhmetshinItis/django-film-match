@@ -1,0 +1,45 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-right: 50px;
+  /* position: fixed; */
+
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  &__logo {
+    width: 90px;
+  }
+}
+
+.nav {
+  &__list {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.nav__link {
+  &--accent {
+    background-color: var(--accent-color);
+    border-radius: 38px;
+    padding: 10px 16px;
+  }
+}
+
+.headerDarkBg {
+  background: #1E1E1E;
+}
+
+.userBlock {
+  cursor: pointer;
+}
+
+.userBlockLight {
+  color: #fff !important;
+}
