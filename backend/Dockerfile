@@ -7,12 +7,12 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["SocialNetwork/FilmMatch.csproj", "SocialNetwork/"]
-COPY ["S3/S3.csproj", "S3/"]
-COPY ["SocialNetwork.Application/FilmMatch.Application.csproj", "SocialNetwork.Application/"]
-COPY ["SocialNetwork.Domain/FilmMatch.Domain.csproj", "SocialNetwork.Domain/"]
-COPY ["SocialNetwork.Infrastructure/FilmMatch.Infrastructure.csproj", "SocialNetwork.Infrastructure/"]
-COPY ["SocialNetwork.Persistence/FilmMatch.Persistence.csproj", "SocialNetwork.Persistence/"]
+COPY ["../SocialNetwork/FilmMatch.csproj", "SocialNetwork/"]
+COPY ["../S3/S3.csproj", "S3/"]
+COPY ["../SocialNetwork.Application/FilmMatch.Application.csproj", "SocialNetwork.Application/"]
+COPY ["../SocialNetwork.Domain/FilmMatch.Domain.csproj", "SocialNetwork.Domain/"]
+COPY ["../SocialNetwork.Infrastructure/FilmMatch.Infrastructure.csproj", "SocialNetwork.Infrastructure/"]
+COPY ["../SocialNetwork.Persistence/FilmMatch.Persistence.csproj", "SocialNetwork.Persistence/"]
 RUN dotnet restore "SocialNetwork/FilmMatch.csproj"
 COPY . .
 WORKDIR "/src/SocialNetwork"
