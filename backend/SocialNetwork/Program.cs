@@ -34,7 +34,7 @@ public class Program
         builder.Services.AddUserContext();
         var configuration = builder.Configuration;
         builder.Services.AddSingleton(configuration);
-        
+        builder.Services.AddHealthChecks();
         
         // Вынести в отдельный класс
         // Настройки сваггера
@@ -134,7 +134,17 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        
+        if (args.Contains("migrate"))
+        {
+            using var scope = app.Services.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<IDbContext>();
+            context.Database.Migrate();
+            Console.WriteLine("✅ Миграции успешно применены.");
+            return;
+        }
 
+        app.MapHealthChecks("/health");
         app.UseMiddleware<ExceptionHandlingMiddleware>();
         app.UseHttpsRedirection();
         app.UseRouting();

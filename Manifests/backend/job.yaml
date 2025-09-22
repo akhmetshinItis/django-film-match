@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrations-pod
+  namespace: back
+spec:
+  template:
+    spec:
+      containers:
+      - name: migrations-job
+        image: bahlish/film-match:1.3
+        command: ["dotnet", "FilmMatch.dll", "migrate"]
+        env:
+            - name: ConnectionStrings__DefaultConnection
+              valueFrom:
+                secretKeyRef:
+                  name: back-secrets
+                  key: connection-string
+      restartPolicy: Never
+  backoffLimit: 4

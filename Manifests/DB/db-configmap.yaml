@@ -4,5 +4,5 @@ metadata:
   namespace: db
   name: db-configmap
 data:
-  host: postgres-headless-svc.monolith.svc.cluster.local
+  host: postgres-headless-svc.db.svc.cluster.local
   port: "5432"
