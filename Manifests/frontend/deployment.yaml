@@ -33,3 +33,8 @@ spec:
               port: 3000
             initialDelaySeconds: 10
             periodSeconds: 30
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
