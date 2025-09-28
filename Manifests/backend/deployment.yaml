@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: back-pod
-        image: bahlish/film-match:latest
+        image: bahlish/film-match:1.5
         ports:
         - containerPort: 8080
         env:

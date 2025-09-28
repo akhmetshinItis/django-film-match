@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: migration-daily-sync
+  namespace: application
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: migration-daily-sync
+            image: bahlish/film-match:1.5
+            command: ["dotnet", "FilmMatch.dll", "migrate"]
+            env:
+                - name: ConnectionStrings__DefaultConnection
+                  valueFrom:
+                    secretKeyRef:
+                      name: back-secrets
+                      key: connection-string
+          restartPolicy: OnFailure
