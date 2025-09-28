@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: front
+  namespace: application
 spec:
   replicas: 2
   selector:
@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: bahlish/film-match-front:1
+          image: bahlish/film-match-front:latest
           ports:
             - containerPort: 3000

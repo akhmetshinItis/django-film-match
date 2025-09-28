@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosSettings = axios.create({
-  baseURL: "http://localhost:5210",
+  baseURL: "http://api.film.local",
 });
 
 export function apiSetHeader(name: string, value: string) {

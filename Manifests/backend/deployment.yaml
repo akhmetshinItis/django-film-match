@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: back-deployment
-  namespace: back
+  namespace: application
   labels:
     app: back-pod
 spec:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: back-pod
-        image: bahlish/film-match:1.3
+        image: bahlish/film-match:latest
         ports:
         - containerPort: 8080
         env:
