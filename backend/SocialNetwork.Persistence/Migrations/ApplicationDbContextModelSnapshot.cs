@@ -59,35 +59,35 @@ namespace FilmMatch.Persistence.Migrations
                         new
                         {
                             Id = new Guid("d0bfe76e-0f12-4fcd-94aa-3be4f90d79e1"),
-                            ImageUrl = "http://localhost:5210/images/category/fantasy.png",
+                            ImageUrl = "https://atomvestnik.ru/wp-content/uploads/2022/08/%D0%9F%D1%80%D0%BE%D1%81%D1%82%D0%BE-%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0-%D0%93%D0%9B%D0%90%D0%92%D0%9D%D0%90%D0%AF.jpg",
                             IsDeleted = false,
                             Name = "Фантастика"
                         },
                         new
                         {
                             Id = new Guid("31f80f2a-9426-41e2-93f7-7f12180722a1"),
-                            ImageUrl = "http://localhost:5210/images/category/triller.jpg",
+                            ImageUrl = "https://icdn.lenta.ru/images/2024/06/19/11/20240619112717688/preview_a517b64420fe27aa683b31e8a306868d.jpg",
                             IsDeleted = false,
                             Name = "Триллер"
                         },
                         new
                         {
                             Id = new Guid("5dbd7a97-f0a1-4f4e-91c7-244cbab17eec"),
-                            ImageUrl = "http://localhost:5210/images/category/comedy.jpg",
+                            ImageUrl = "https://images.iptv.rt.ru/images/cemmbqbir4ssk1206l40.jpg",
                             IsDeleted = false,
                             Name = "Комедия"
                         },
                         new
                         {
                             Id = new Guid("4b4974f1-8ea2-43f1-998f-d3a1cfb9d1c3"),
-                            ImageUrl = "http://localhost:5210/images/category/drama.png",
+                            ImageUrl = "https://www.kinonews.ru/insimgs/imgzhanr9.webp",
                             IsDeleted = false,
                             Name = "Драма"
                         },
                         new
                         {
                             Id = new Guid("0b27972c-b3df-4ae4-9138-2e90c749d139"),
-                            ImageUrl = "http://localhost:5210/images/category/action.png",
+                            ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/6201401/040a010c-660d-4185-946e-2cd812852ee2/600x900",
                             IsDeleted = false,
                             Name = "Боевик"
                         });
@@ -147,7 +147,7 @@ namespace FilmMatch.Persistence.Migrations
                         {
                             Id = new Guid("a1e7b5fa-34df-4bc4-902e-cdfb10dcf001"),
                             CategoryId = new Guid("d0bfe76e-0f12-4fcd-94aa-3be4f90d79e1"),
-                            ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/4771096/2a0000017e39d1cfcb48b5f4fe5a81e8b9f4/1920x",
+                            ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/430042eb-ee69-4818-aed0-a312400a26bf/600x900",
                             IsDeleted = false,
                             LongDescription = "Эпический научно-фантастический фильм о путешествии через червоточину.",
                             ReleaseDate = new DateTime(2014, 11, 7, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -158,7 +158,7 @@ namespace FilmMatch.Persistence.Migrations
                         {
                             Id = new Guid("8cb06d19-68aa-4ce3-a1a6-76e48d9f4d55"),
                             CategoryId = new Guid("31f80f2a-9426-41e2-93f7-7f12180722a1"),
-                            ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/4771096/2a0000017e39d1cfcb48b5f4fe5a81e8b9f4/1920x",
+                            ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/1629390/8ab9a119-dd74-44f0-baec-0629797483d7/600x900",
                             IsDeleted = false,
                             LongDescription = "Триллер о проникновении в сны и манипуляции сознанием.",
                             ReleaseDate = new DateTime(2010, 7, 16, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -169,7 +169,7 @@ namespace FilmMatch.Persistence.Migrations
                         {
                             Id = new Guid("afde4eeb-c0b7-404f-aad0-0d188fe9a921"),
                             CategoryId = new Guid("d0bfe76e-0f12-4fcd-94aa-3be4f90d79e1"),
-                            ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/4771096/2a0000017e39d1cfcb48b5f4fe5a81e8b9f4/1920x",
+                            ImageUrl = "https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/a53d1c75-4d1a-4c86-a936-65b2a724345c/600x900",
                             IsDeleted = false,
                             LongDescription = "Культовый фильм о виртуальной реальности и борьбе за свободу.",
                             ReleaseDate = new DateTime(1999, 3, 31, 0, 0, 0, 0, DateTimeKind.Utc),

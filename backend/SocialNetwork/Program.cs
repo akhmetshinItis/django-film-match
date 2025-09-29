@@ -36,6 +36,17 @@ public class Program
         builder.Services.AddSingleton(configuration);
         builder.Services.AddHealthChecks();
         
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowFilmLocal", policy =>
+            {
+                policy.WithOrigins("http://film.local")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials(); // важно, если используете куки/авторизацию
+            });
+        });
+        
         // Вынести в отдельный класс
         // Настройки сваггера
         builder.Services.AddSwaggerGen(options =>
@@ -127,6 +138,8 @@ public class Program
         });
 
         var app = builder.Build();
+        
+        app.UseCors("AllowFilmLocal");
 
         // Конфигурация middleware ПОСЛЕ Build()
         if (app.Environment.IsDevelopment())
@@ -140,7 +153,7 @@ public class Program
             using var scope = app.Services.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<IDbContext>();
             context.Database.Migrate();
-            Console.WriteLine("✅ Миграции успешно применены.");
+            Console.WriteLine("Миграции успешно применены.");
             return;
         }
 

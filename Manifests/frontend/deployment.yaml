@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: front
+  namespace: application
 spec:
   replicas: 2
   selector:
@@ -15,6 +15,26 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: bahlish/film-match-front:1
+          image: bahlish/film-match-front:latest
           ports:
             - containerPort: 3000
+          env:
+            - name: REACT_APP_API_URL
+              value: "http://api.film.local" 
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 30
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1

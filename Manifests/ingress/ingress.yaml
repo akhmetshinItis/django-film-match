@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: film-ingress
+  namespace: application
+
+spec:
+  ingressClassName: nginx
+  rules:
+    # Правило для фронтенда
+    - host: film.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+
+    # Правило для бэкенда
+    - host: api.film.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: back-service
+                port:
+                  number: 80
