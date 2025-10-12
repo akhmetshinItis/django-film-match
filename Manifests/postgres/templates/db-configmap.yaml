@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: db
+  name: db-configmap
+data:
+  host: postgres-headless-svc.{{ .Relaese.Namespace }}.svc.cluster.local
+  port: {{ .Values.service.port.port | quote}}

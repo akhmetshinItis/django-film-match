@@ -1,0 +1,12 @@
+service:
+  type: ClusterIP
+  port:
+    name: postgresql
+    port: 5432
+    targetPort: postgresql
+    protocol: TCP
+
+secret:
+  username: postgres
+  password: postgresmaster
+  database: FilmMatch11
