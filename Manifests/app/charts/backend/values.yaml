@@ -1,0 +1,29 @@
+service:
+  type: NodePort
+  port:
+    port: 80
+    targetPort: 8080
+
+secret:
+  connection-string: "Host=postgres-headless-svc.db.svc.cluster.local;Port=5432;Database=FilmMatch11;Username=postgres;Password=postgresmaster;"
+
+deployment:
+  replicas: 3
+  image:
+    name: bahlish/film-match
+    tag: "1.5"
+  env:
+    ASPNETCORE_ENVIRONMENT: Production
+    ASPNETCORE_URLS: http://+:8080
+    ConnectionStrings__DefaultConnection: "Host=postgres-headless-svc.db.svc.cluster.local;Port=5432;Database=FilmMatch11;Username=postgres;Password=postgresmaster;"
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8080
+    initialDelaySeconds: 15
+    periodSeconds: 60
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
