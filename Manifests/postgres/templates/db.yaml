@@ -1,11 +1,10 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgres-sts
-  namespace: db
+  name: "{{ .Chart.Name }}-sts"
 spec:
-  serviceName: postgres-headless-svc
-  replicas: 1
+  serviceName: "{{ .Chart.Name }}-headless-svc"
+  replicas: {{ .Values.statefulSet.replicas}}
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
@@ -15,34 +14,34 @@ spec:
         app: {{ .Chart.Name }}
     spec:
       containers:
-        - name: postgresql
-          image: postgres:17
-          imagePullPolicy: "IfNotPresent"
+        - name: {{ .Values.service.port.name }}
+          image: "{{ .Values.statefulSet.image.name }}:{{ .Values.statefulSet.image.tag }}"
+          imagePullPolicy: {{ .Values.statefulSet.imagePullPolicy | quote}}
           env:
             - name: PGDATA
-              value: "/bitnami/postgresql/data"
+              value: {{ .Values.statefulSet.env.values.PGDATA | quote }}
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets
+                  name: "{{ .Chart.Name }}-secrets"
                   key: username
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets
+                  name: "{{ .Chart.Name }}-secrets"
                   key: password
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets
+                  name: "{{ .Chart.Name }}-secrets"
                   key: database
           ports:
-            - name: postgresql
-              containerPort: 5432
-              protocol: TCP
+            - name: {{ .Values.service.port.name }}
+              containerPort: {{ .Values.service.port.port }}
+              protocol: {{ .Values.service.port.protocol }}
           volumeMounts:
-            - name: data
-              mountPath: /bitnami/postgresql
+            - name: {{ .Values.statefulSet.pvc.name }}
+              mountPath: {{ .Values.statefulSet.pvc.mountPath }}
           readinessProbe:
             exec:
               command:
@@ -65,10 +64,10 @@ spec:
             periodSeconds: 30
   volumeClaimTemplates:
     - metadata:
-        name: data
+        name: {{ .Values.statefulSet.pvc.name }}
       spec:
         accessModes:
-          - "ReadWriteOnce"
+          - {{ .Values.statefulSet.pvc.accessMode | quote }}
         resources:
           requests:
-            storage: "1Gi"
+            storage: {{ .Values.statefulSet.pvc.storage | quote }}
