@@ -3,12 +3,16 @@ kind: Service
 metadata:
   name: "{{ .Chart.Name }}-headless-svc"
 spec:
-  type: {{ .Values.service.type }}
+  {{- with .Values.service }}
+  type: {{ .type }}
   clusterIP: None
   ports:
-  - name: {{ .Values.service.port.name }}
-    port: {{ .Values.service.port.port }}
-    targetPort: {{ .Values.service.port.targetPort }}
-    protocol: {{ .Values.service.port.protocol }}
+    {{- with .port }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ .protocol }}
+    {{- end }}
+  {{- end }}
   selector:
-    app: {{ .Chart.Name }}
+    app: {{ $.Chart.Name }}

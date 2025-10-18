@@ -11,6 +11,8 @@ secret:
   password: postgresmaster
   database: FilmMatch11
 
+config: {}
+
 statefulSet:
   replicas: 1
   imagePullPolicy: IfNotPresent
@@ -25,3 +27,8 @@ statefulSet:
   env:
     values:
       PGDATA: /bitnami/postgresql/data
+    secrets:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+    config: {}
