@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: db-configmap
+  labels:
+{{ include "postgres.labels" . | indent 4 }}
 data:
   host: "{{ .Chart.Name }}-headless-svc.{{ .Release.Namespace }}.svc.cluster.local"
   port: {{ .Values.service.port.port | quote}}

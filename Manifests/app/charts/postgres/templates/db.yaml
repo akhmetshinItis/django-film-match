@@ -2,16 +2,18 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: "{{ .Chart.Name }}-sts"
+  labels:
+{{ include "postgres.labels" . | indent 4 }}
 spec:
   serviceName: "{{ .Chart.Name }}-headless-svc"
   replicas: {{ .Values.statefulSet.replicas }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+{{- include "postgres.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+{{- include "postgres.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - {{- with .Values.service.port }}
