@@ -1,0 +1,14 @@
+namespace: application
+enabled: true
+
+ingressClassName: nginx
+
+frontend:
+  host: film.local
+  serviceName: frontend
+  servicePort: 80
+
+backend:
+  host: api.film.local
+  serviceName: back-service
+  servicePort: 80
