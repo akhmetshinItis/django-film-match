@@ -36,17 +36,6 @@ public class Program
         builder.Services.AddSingleton(configuration);
         builder.Services.AddHealthChecks();
         
-        builder.Services.AddCors(options =>
-        {
-            options.AddPolicy("AllowFilmLocal", policy =>
-            {
-                policy.WithOrigins("http://film.local")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials(); // важно, если используете куки/авторизацию
-            });
-        });
-        
         // Вынести в отдельный класс
         // Настройки сваггера
         builder.Services.AddSwaggerGen(options =>
@@ -130,16 +119,20 @@ public class Program
         {
             options.AddDefaultPolicy(policy =>
             {
-                policy.WithOrigins("http://localhost:5173")
-                      .AllowAnyHeader()
-                      .AllowAnyMethod()
-                      .AllowCredentials();
+                policy
+                    .WithOrigins(
+                        "http://film.local",
+                        "http://localhost:5173"
+                    )
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials(); // ← обязательно, если используете withCredentials
             });
         });
 
         var app = builder.Build();
         
-        app.UseCors("AllowFilmLocal");
+        app.UseCors();
 
         // Конфигурация middleware ПОСЛЕ Build()
         if (app.Environment.IsDevelopment())
@@ -161,7 +154,6 @@ public class Program
         app.UseMiddleware<ExceptionHandlingMiddleware>();
         app.UseHttpsRedirection();
         app.UseRouting();
-        app.UseCors();
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseStaticFiles();

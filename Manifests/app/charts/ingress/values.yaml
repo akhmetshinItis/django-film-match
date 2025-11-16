@@ -1,4 +1,4 @@
-namespace: application
+namespace: test1
 enabled: true
 
 ingressClassName: nginx
@@ -10,5 +10,5 @@ frontend:
 
 backend:
   host: api.film.local
-  serviceName: back-service
+  serviceName: backend-service
   servicePort: 80
