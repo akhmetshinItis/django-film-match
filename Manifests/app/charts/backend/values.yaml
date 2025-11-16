@@ -11,7 +11,8 @@ deployment:
   replicas: 3
   image:
     name: bahlish/film-match
-    tag: "1.5"
+    tag: "1.6"
+    pullPolicy: Always
   env:
     ASPNETCORE_ENVIRONMENT: Production
     ASPNETCORE_URLS: http://+:8080

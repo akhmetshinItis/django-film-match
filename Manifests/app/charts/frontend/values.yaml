@@ -30,4 +30,4 @@ strategy:
     maxUnavailable: 1
     maxSurge: 1
 
-namespace: application
+namespace: test1
