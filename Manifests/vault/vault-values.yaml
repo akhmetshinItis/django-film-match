@@ -10,7 +10,7 @@ server:
     enabled: true
     ingressClassName: "nginx"
     hosts:
-    - host: дописать!!!!
+    - host: vault.192.168.49.2.nip.io 
     extraPaths:
     - path: /ui
       pathType: Prefix
