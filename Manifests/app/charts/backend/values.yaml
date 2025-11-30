@@ -5,7 +5,7 @@ service:
     targetPort: 8080
 
 secret:
-  connection-string: "Host=postgres-headless-svc.db.svc.cluster.local;Port=5432;Database=FilmMatch11;Username=postgres;Password=postgresmaster;"
+  connection-string: ref+vault://secrets/back#/connection-string
 
 deployment:
   replicas: 3
@@ -16,7 +16,7 @@ deployment:
   env:
     ASPNETCORE_ENVIRONMENT: Production
     ASPNETCORE_URLS: http://+:8080
-    ConnectionStrings__DefaultConnection: "Host=postgres-headless-svc.db.svc.cluster.local;Port=5432;Database=FilmMatch11;Username=postgres;Password=postgresmaster;"
+    ConnectionStrings__DefaultConnection: ref+vault://secrets/back#/connection-string
   livenessProbe:
     httpGet:
       path: /health

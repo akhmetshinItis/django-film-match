@@ -1,1 +1,120 @@
 namespace: application
+backend:
+  service:
+    type: NodePort
+    port:
+      port: 80
+      targetPort: 8080
+
+  secret:
+    connection-string: "Host=postgres-headless-svc.db.svc.cluster.local;Port=5432;Database=FilmMatch11;Username=postgres;Password=postgresmaster;"
+
+  deployment:
+    replicas: 3
+    image:
+      name: bahlish/film-match
+      tag: "1.6"
+      pullPolicy: Always
+    env:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: "Host=postgres-headless-svc.db.svc.cluster.local;Port=5432;Database=FilmMatch11;Username=postgres;Password=postgresmaster;"
+    livenessProbe:
+      httpGet:
+        path: /health
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 60
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 1
+        maxSurge: 1
+  
+frontend:
+  replicaCount: 2
+
+  image:
+    repository: bahlish/film-match-front
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 3000
+
+  env:
+    - name: REACT_APP_API_URL
+      value: "http://api.film.local"
+
+  probes:
+    readiness:
+      path: /
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    liveness:
+      path: /
+      initialDelaySeconds: 10
+      periodSeconds: 30
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+  namespace: test1
+
+
+ingress:
+  namespace: test1
+  enabled: true
+
+  ingressClassName: nginx
+
+  frontend:
+    host: film.local
+    serviceName: frontend
+    servicePort: 80
+
+  backend:
+    host: api.film.local
+    serviceName: backend-service
+    servicePort: 80
+
+postgres:
+  service:
+    type: ClusterIP
+    port:
+      name: postgresql
+      port: 5432
+      targetPort: postgresql
+      protocol: TCP
+
+  secret:
+    username: postgres
+    password: postgresmaster
+    database: FilmMatch11
+
+  config: {}
+
+  statefulSet:
+    replicas: 1
+    imagePullPolicy: IfNotPresent
+    image:
+      name: postgres
+      tag: 17
+    pvc:
+      name: data
+      mountPath: /bitnami/postgresql
+      accessMode: ReadWriteOnce
+      storage: 1Gi
+    env:
+      values:
+        PGDATA: /bitnami/postgresql/data
+      secrets:
+        POSTGRES_USER: username
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: database
+      config: {}
